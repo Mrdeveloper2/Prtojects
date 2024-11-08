@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <script src="https://kit.fontawesome.com/b382881922.js" crossorigin="anonymous"></script>  
+    <style>
+        *{
+            padding: 0px;
+            margin: 0px;
+        }
+        .container{
+            height: 100vh;
+            width: 100vw;
+            background-color: blueviolet;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+        }
+        .inputField{
+            /* height: 100px; */
+            background-color: rgb(10, 67, 67);
+            height: 50px;
+            width: 350px;
+            text-align: center;
+            padding: 20px;
+            border: 5px solid black;
+        }
+        .inputField input{
+            padding: 10px;
+            font-size: 15px;
+            outline: none;
+            border: none;
+        }
+        .addItems{
+            height: 40px;
+            width: 90px;
+            text-align: center;
+        }
+        .listcls{
+            width: 370px;
+            height: 40px;
+            display: flex;
+            background-color: salmon;
+            /* text-align: center;  */
+            margin: 10px;
+            padding: 5px;
+            color:aliceblue;
+            border: 3px solid gold;
+
+        }
+        .listcls1{
+            flex-grow: 1;
+            width:90px ;
+            padding: 10px;
+        }
+        .fa-trash {
+            font-size: 18px;
+            padding: 10px;
+            
+        }
+        .fa-pen{
+            font-size: 18px;
+            padding: 10px;
+        }
+        .editBtn{
+            border: none;
+            background-color: transparent;
+            margin-right: 10px;
+        }
+        .delBtn{
+            
+            border: none;
+            background-color: transparent;
+        }
+        .editcls{
+            width: 370px;
+            height: 30px;
+            display: flex;
+            background-color: skyblue;
+            color:aliceblue;
+            outline: none;
+    
+        }
+        .inputField input:focus{ 
+           border: 2px solid red;
+           border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" >
+        <div class="inputField">
+            <input type="text" id="textId" placeholder="Enter Something">
+            <button id="buttonId" class="addItems">Add Item</button>
+        </div>
+        <div id="newtask">
+
+        </div>
+        
+    </div>
+    <script>
+        let inputValue = document.getElementById("textId")
+        let buttonEle = document.getElementById("buttonId")
+        let Newtasks = document.getElementById("newtask")
+
+        buttonEle.addEventListener("click",addItems)
+
+            function addItems(){
+                if (inputValue.value == 0){
+                    alert("Enter a Task")
+                }
+                else{
+                    let taskDiv = document.createElement('div')
+                    taskDiv.classList.add("listcls")
+                    Newtasks.appendChild(taskDiv)
+
+                    let spanEle = document.createElement('span')
+                    spanEle.innerText=inputValue.value
+                    spanEle.classList.add("listcls1")
+                    taskDiv.appendChild(spanEle)
+
+                    let checkbx =document.createElement('input')
+                    checkbx.type='checkbox'
+                    checkbx.classList.add("chkbx")
+                    taskDiv.appendChild(checkbx)
+
+                    checkbx.addEventListener("click",checkit)
+
+                        function checkit(){
+                            if (checkbx.checked){
+                                spanEle.style.textDecoration="line-through"
+                            }
+                            else{
+                                spanEle.style.textDecoration = "none";
+                            }
+                        }
+
+                
+                    let delButton=document.createElement('button')
+                    delButton.innerHTML = `<i class="fa-solid fa-trash"></i>`
+                    delButton.classList.add("delBtn")
+                    inputValue.value = ""
+                    taskDiv.appendChild(delButton)
+
+                    delButton.addEventListener("click",Delete)
+
+                    function Delete(){
+                        taskDiv.remove()
+                    }
+
+                    let editBtn=document.createElement("button")
+                    editBtn.innerHTML = `<i class="fa-solid fa-pen"></i>`
+                    editBtn.classList.add("editBtn")
+                    taskDiv.appendChild(editBtn)
+
+                    editBtn.addEventListener("click",edit)
+
+                        function edit(){
+                            let editOption = document.createElement("input")
+                            editOption.type="text"
+                            editOption.classList.add("editcls")
+                            editOption.value = spanEle.innerText
+                            taskDiv.replaceChild(editOption,spanEle)
+                            editOption.focus()
+                        
+                        editOption.addEventListener('keydown',function(event){
+                            if (event.key==='Enter'){   
+                                spanEle.innerText = editOption.value
+                                taskDiv.replaceChild(spanEle,editOption)
+                            }
+                        })
+                    }
+                }
+            }
+    </script>
+</body>
+</html>
