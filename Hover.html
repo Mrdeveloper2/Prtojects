@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .animated-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            color: white;
+            background: linear-gradient(120deg, #3498db, #8e44ad, #e74c3c); /* Color gradient */
+            background-size: 200% 200%; /* Ensure the gradient is larger than the button */
+            border-radius: 5px;
+            transition: background-position 0.6s ease-in-out; /* Smooth transition */
+            background-position: 0% 50%; /* Initial position of gradient */
+        }
+
+        .animated-button:hover {
+            background-position: 100% 50%; /* Move gradient to the right on hover */
+        }
+    </style>
+</head>
+<body>
+
+    <button class="animated-button">Hover me!</button>
+
+</body>
+</html>
